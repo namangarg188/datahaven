@@ -3,159 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataHaven Quiz Mastermind</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+                <title>DataHaven</title>
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <style>
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        .option:hover {
-            transform: translateY(-2px);
-        }
-        .whitespace-normal {
-            white-space: normal;
-        }
-.progress-ring__circle {
-            transition: stroke-dashoffset 0.5s ease;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 min-h-screen text-white">
-    <div id="vanta-bg" class="fixed inset-0 z-0"></div>
-    
-    <div class="relative z-10 container mx-auto px-4 py-8">
+<body class="bg-gray-50" id="vanta-bg">
+    <div class="min-h-screen">
         <!-- Header -->
-        <header class="flex justify-between items-center mb-8">
-            <div class="flex items-center space-x-2">
-                <i data-feather="lock" class="text-yellow-400"></i>
-                <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">DataHaven Quiz Mastermind</h1>
-            </div>
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <svg class="w-12 h-12">
-                        <circle class="text-gray-700" stroke-width="6" stroke="currentColor" fill="transparent" r="18" cx="24" cy="24"/>
-                        <circle class="progress-ring__circle text-yellow-400" stroke-width="6" stroke-dasharray="113" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="18" cx="24" cy="24"/>
-                    </svg>
-                    <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-bold">0%</span>
-                </div>
-                <div class="flex space-x-1">
-                    <i data-feather="key" class="text-gray-400"></i>
-                    <i data-feather="key" class="text-gray-400"></i>
-                    <i data-feather="key" class="text-gray-400"></i>
-                    <i data-feather="key" class="text-gray-400"></i>
-                    <i data-feather="key" class="text-gray-400"></i>
-                </div>
+        <header class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full z-50">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="https://huggingface.co/spaces/namangarg188/crowdquiz-champions/resolve/main/images/9YuEYF8-_400x400.jpg" alt="DataHaven Logo" class="h-8 w-8 rounded-full">
+                    <h1 class="text-xl font-bold gradient-text">DataHaven</h1>
+</div>
+<nav class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-gray-700 hover:text-purple-600 font-medium">Home</a>
+                    <a href="#leaderboard" class="text-gray-700 hover:text-purple-600 font-medium">Leaderboard</a>
+                    <a href="#submit" class="text-gray-700 hover:text-purple-600 font-medium">Submit Question</a>
+                </nav>
+                <button class="md:hidden" id="menu-toggle">
+                    <i data-feather="menu"></i>
+                </button>
             </div>
         </header>
 
-        <!-- Quiz Container -->
-        <div class="max-w-2xl mx-auto bg-gray-800 bg-opacity-70 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden">
-            <!-- Progress Bar -->
-            <div class="h-1 bg-gray-700">
-                <div class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500" style="width: 0%"></div>
+        <!-- Hero Section -->
+        <section id="home" class="pt-32 pb-20 px-4">
+            <div class="container mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">Crowdsourced Quiz Challenge</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
+                    Add your own quiz questions, compete weekly, and earn rewards for creating the best content!
+                </p>
+                <div class="max-w-3xl mx-auto bg-gray-100 p-4 rounded-lg mb-8 border-l-4 border-purple-600">
+                    <h3 class="font-semibold text-purple-600 mb-2">About DataHaven</h3>
+                    <p class="text-gray-700">A decentralized storage solution that merges the strengths of decentralization with enterprise-grade security, verifiability, and seamless interoperability for the future of AI, Web3, and tokenized assets.</p>
+                </div>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#submit" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-medium shadow-lg transition-all">
+                        Submit Question
+                    </a>
+                    <a href="#leaderboard" class="bg-white hover:bg-gray-100 text-purple-600 px-6 py-3 rounded-full font-medium border border-purple-600 shadow-lg transition-all">
+                        View Leaderboard
+                    </a>
+                </div>
             </div>
+        </section>
 
-            <!-- Question Section -->
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm font-medium text-purple-300">Question 1/50</span>
-                    <span class="text-xs px-2 py-1 bg-gray-700 rounded-full">Level 1</span>
-                </div>
-                
-                <h2 class="text-xl font-semibold mb-6" id="question-text">Why was DataHaven created?</h2>
-                <!-- Options -->
-                <div class="space-y-3" id="options-container">
-                    <div class="option cursor-pointer bg-gray-700 hover:bg-gray-600 rounded-lg p-4 transition-all duration-200 border border-gray-600" data-correct="false">
-                        <div class="flex items-start">
-                            <div class="w-5 h-5 rounded-full border border-gray-400 mr-3 flex-shrink-0 mt-1"></div>
-                            <span class="break-words flex-1">A) Only for NFTs</span>
+        <!-- How It Works -->
+        <section class="py-16 bg-white/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 gradient-text">How It Works</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i data-feather="plus-circle" class="text-purple-600"></i>
                         </div>
+                        <h3 class="text-xl font-semibold text-center mb-2">1. Submit Questions</h3>
+                        <p class="text-gray-600 text-center">Anyone can submit quiz questions with multiple choice answers.</p>
                     </div>
-                    <div class="option cursor-pointer bg-gray-700 hover:bg-gray-600 rounded-lg p-4 transition-all duration-200 border border-gray-600" data-correct="true">
-                        <div class="flex items-start">
-                            <div class="w-5 h-5 rounded-full border border-gray-400 mr-3 flex-shrink-0 mt-1"></div>
-                            <span class="break-words flex-1">B) To provide decentralized, secure storage and interoperability</span>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i data-feather="trending-up" class="text-blue-600"></i>
                         </div>
+                        <h3 class="text-xl font-semibold text-center mb-2">2. Weekly Competition</h3>
+                        <p class="text-gray-600 text-center">Top questions each week enter the leaderboard based on engagement.</p>
                     </div>
-                    <div class="option cursor-pointer bg-gray-700 hover:bg-gray-600 rounded-lg p-4 transition-all duration-200 border border-gray-600" data-correct="false">
-                        <div class="flex items-start">
-                            <div class="w-5 h-5 rounded-full border border-gray-400 mr-3 flex-shrink-0 mt-1"></div>
-                            <span class="break-words flex-1">C) For centralized cloud storage</span>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i data-feather="award" class="text-pink-600"></i>
                         </div>
+                        <h3 class="text-xl font-semibold text-center mb-2">3. Earn Rewards</h3>
+                        <p class="text-gray-600 text-center">Creators of top questions win DataHaven tokens and special badges.</p>
                     </div>
-                    <div class="option cursor-pointer bg-gray-700 hover:bg-gray-600 rounded-lg p-4 transition-all duration-200 border border-gray-600" data-correct="false">
-                        <div class="flex items-start">
-                            <div class="w-5 h-5 rounded-full border border-gray-400 mr-3 flex-shrink-0 mt-1"></div>
-                            <span class="break-words flex-1">D) Just as a token project</span>
-                        </div>
-                    </div>
-                </div>
 </div>
-
-            <!-- Action Buttons -->
-            <div class="px-6 pb-6 pt-4 bg-gray-900 bg-opacity-50">
-                <button id="submit-btn" class="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2">
-                    <span>Submit Answer</span>
-                    <i data-feather="arrow-right" class="w-4 h-4"></i>
-                </button>
             </div>
-        </div>
+        </section>
 
-        <!-- Feedback Modal -->
-        <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
-            <div class="bg-gray-800 rounded-xl p-6 max-w-sm w-full mx-4 transform transition-all duration-300 scale-95 opacity-0">
-                <div class="text-center">
-                    <div id="feedback-icon" class="mx-auto mb-4 w-16 h-16 rounded-full flex items-center justify-center">
-                        <i data-feather="check" class="w-10 h-10 text-green-500 hidden"></i>
-                        <i data-feather="x" class="w-10 h-10 text-red-500 hidden"></i>
+        <!-- Current Questions -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Featured Questions</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Question Card 1 -->
+                    <div class="question-card bg-white p-6 rounded-xl shadow-md border border-gray-100 transition-all duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Blockchain</span>
+                            <span class="text-sm text-gray-500">@crypto_expert</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-3">What is DataHaven primarily built on?</h3>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center">
+                                <input type="radio" name="q1" id="q1a" class="mr-2">
+                                <label for="q1a">Cosmos SDK</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q1" id="q1b" class="mr-2">
+                                <label for="q1b" class="font-medium">Substrate</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q1" id="q1c" class="mr-2">
+                                <label for="q1c">Solana</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q1" id="q1d" class="mr-2">
+                                <label for="q1d">Avalanche</label>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span>42 votes</span>
+                            <button class="text-purple-600 hover:text-purple-800 flex items-center">
+                                <i data-feather="thumbs-up" class="w-4 h-4 mr-1"></i> Vote
+                            </button>
+                        </div>
                     </div>
-                    <h3 id="feedback-title" class="text-xl font-bold mb-2">Correct!</h3>
-                    <p id="feedback-desc" class="text-gray-300 mb-6">You earned 2 points</p>
-                    <button id="next-btn" class="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300">
-                        Next Question
+
+                    <!-- Question Card 2 -->
+                    <div class="question-card bg-white p-6 rounded-xl shadow-md border border-gray-100 transition-all duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Storage</span>
+                            <span class="text-sm text-gray-500">@tech_guru</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-3">Who provides backup redundancy in DataHaven?</h3>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center">
+                                <input type="radio" name="q2" id="q2a" class="mr-2">
+                                <label for="q2a">Main Storage Providers</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q2" id="q2b" class="mr-2">
+                                <label for="q2b" class="font-medium">Backup Storage Providers</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q2" id="q2c" class="mr-2">
+                                <label for="q2c">Compute Providers</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q2" id="q2d" class="mr-2">
+                                <label for="q2d">Token Holders</label>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span>35 votes</span>
+                            <button class="text-blue-600 hover:text-blue-800 flex items-center">
+                                <i data-feather="thumbs-up" class="w-4 h-4 mr-1"></i> Vote
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question Card 3 -->
+                    <div class="question-card bg-white p-6 rounded-xl shadow-md border border-gray-100 transition-all duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Tokens</span>
+                            <span class="text-sm text-gray-500">@defi_enthusiast</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-3">What is the role of DataHaven's system token?</h3>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center">
+                                <input type="radio" name="q3" id="q3a" class="mr-2">
+                                <label for="q3a">Meme trading only</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q3" id="q3b" class="mr-2">
+                                <label for="q3b">NFT minting only</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q3" id="q3c" class="mr-2">
+                                <label for="q3c" class="font-medium">Governance + payments + staking</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="q3" id="q3d" class="mr-2">
+                                <label for="q3d">Exchange-only liquidity</label>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span>28 votes</span>
+                            <button class="text-green-600 hover:text-green-800 flex items-center">
+                                <i data-feather="thumbs-up" class="w-4 h-4 mr-1"></i> Vote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-8">
+                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-2 rounded-full font-medium transition-all">
+                        View All Questions
                     </button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Level Up Modal -->
-        <div id="levelup-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
-            <div class="bg-gray-800 rounded-xl p-6 max-w-sm w-full mx-4 transform transition-all duration-300 scale-95 opacity-0">
-                <div class="text-center">
-                    <div class="mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center pulse-animation">
-                        <i data-feather="star" class="w-10 h-10 text-white"></i>
+        <!-- Leaderboard -->
+        <section id="leaderboard" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Weekly Leaderboard</h2>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden max-w-4xl mx-auto">
+                    <div class="grid grid-cols-12 bg-gray-100 p-4 font-semibold text-gray-700">
+                        <div class="col-span-1">Rank</div>
+                        <div class="col-span-6">Question</div>
+                        <div class="col-span-3">Author</div>
+                        <div class="col-span-2 text-right">Votes</div>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2">Level Up!</h3>
-                    <p class="text-gray-300 mb-4">You've unlocked Level 2</p>
-                    <div class="flex justify-center mb-6">
-                        <i data-feather="key" class="w-8 h-8 text-yellow-400 mx-1"></i>
-                        <i data-feather="key" class="w-8 h-8 text-gray-400 mx-1"></i>
-                        <i data-feather="key" class="w-8 h-8 text-gray-400 mx-1"></i>
-                        <i data-feather="key" class="w-8 h-8 text-gray-400 mx-1"></i>
-                        <i data-feather="key" class="w-8 h-8 text-gray-400 mx-1"></i>
+                    <!-- Leaderboard Item 1 -->
+                    <div class="grid grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50">
+                        <div class="col-span-1 flex items-center">
+                            <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                        </div>
+                        <div class="col-span-6 font-medium">Which blockchain framework is DataHaven built on?</div>
+                        <div class="col-span-3 text-purple-600">@blockchain_whiz</div>
+                        <div class="col-span-2 text-right font-semibold">128</div>
                     </div>
-                    <button id="continue-btn" class="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300">
-                        Continue
-                    </button>
+                    <!-- Leaderboard Item 2 -->
+                    <div class="grid grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50">
+                        <div class="col-span-1 flex items-center">
+                            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                        </div>
+                        <div class="col-span-6 font-medium">What does BSP stand for in DataHaven?</div>
+                        <div class="col-span-3 text-blue-600">@data_architect</div>
+                        <div class="col-span-2 text-right font-semibold">97</div>
+                    </div>
+                    <!-- Leaderboard Item 3 -->
+                    <div class="grid grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50">
+                        <div class="col-span-1 flex items-center">
+                            <div class="w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                        </div>
+                        <div class="col-span-6 font-medium">Which assets can DataHaven support?</div>
+                        <div class="col-span-3 text-green-600">@crypto_trader</div>
+                        <div class="col-span-2 text-right font-semibold">85</div>
+                    </div>
+                    <!-- Leaderboard Item 4 -->
+                    <div class="grid grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50">
+                        <div class="col-span-1 flex items-center">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-gray-700 font-bold">4</div>
+                        </div>
+                        <div class="col-span-6">How does DataHaven achieve Ethereum compatibility?</div>
+                        <div class="col-span-3 text-pink-600">@web3_dev</div>
+                        <div class="col-span-2 text-right font-semibold">72</div>
+                    </div>
+                    <!-- Leaderboard Item 5 -->
+                    <div class="grid grid-cols-12 p-4 hover:bg-gray-50">
+                        <div class="col-span-1 flex items-center">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-gray-700 font-bold">5</div>
+                        </div>
+                        <div class="col-span-6">What is a unique feature of DataHaven storage?</div>
+                        <div class="col-span-3 text-indigo-600">@storage_specialist</div>
+                        <div class="col-span-2 text-right font-semibold">63</div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <div class="inline-flex items-center bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full">
+                        <i data-feather="award" class="mr-2"></i>
+                        <span>Top 5 creators this week win 5 DataHaven tokens each!</span>
+                    </div>
+</div>
+            </div>
+        </section>
+
+        <!-- Submit Question -->
+        <section id="submit" class="py-16">
+            <div class="container mx-auto px-4 max-w-2xl">
+                <h2 class="text-3xl font-bold text-center mb-8 gradient-text">Submit Your Question</h2>
+                <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
+                    <form>
+                        <div class="mb-6">
+                            <label for="question" class="block text-gray-700 font-medium mb-2">Your Question</label>
+                            <textarea id="question" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Enter your quiz question here"></textarea>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Options (Mark correct answer)</label>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <input type="radio" name="correct" class="mr-3" checked>
+                                    <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg" placeholder="Option A">
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="correct" class="mr-3">
+                                    <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg" placeholder="Option B">
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="correct" class="mr-3">
+                                    <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg" placeholder="Option C">
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="correct" class="mr-3">
+                                    <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg" placeholder="Option D">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="category" class="block text-gray-700 font-medium mb-2">Category</label>
+                                <select id="category" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                                    <option>Blockchain</option>
+                                    <option>Technology</option>
+                                    <option>DeFi</option>
+                                    <option>NFTs</option>
+                                    <option>Storage</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="discord" class="block text-gray-700 font-medium mb-2">Discord Username</label>
+                                <input type="text" id="discord" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="@yourusername">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-medium shadow-md transition-all">
+                            Submit Question
+                        </button>
+                    </form>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i data-feather="award" class="mr-2"></i> DataHaven
+                        </h3>
+                        <p class="text-gray-400">A decentralized storage solution that merges the strengths of decentralization with enterprise-grade security, verifiability, and seamless interoperability.</p>
+</div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                            <li><a href="#leaderboard" class="text-gray-400 hover:text-white transition">Leaderboard</a></li>
+                            <li><a href="#submit" class="text-gray-400 hover:text-white transition">Submit Question</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Resources</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Reward System</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Connect</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white transition">
+                                <i data-feather="twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition">
+                                <i data-feather="discord"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition">
+                                <i data-feather="github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                    <p>© 2023 DataHaven. All rights reserved.</p>
+</div>
+            </div>
+        </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script>
         // Initialize Vanta.js background
-        VANTA.GLOBE({
+        VANTA.NET({
             el: "#vanta-bg",
             mouseControls: true,
             touchControls: true,
@@ -164,220 +390,39 @@
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 1.00,
-            color: 0x4f46e5,
-            backgroundColor: 0x0
+            color: 0x7c3aed,
+            backgroundColor: 0xf9fafb,
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
         });
 
-        // Feather icons
-        document.addEventListener('DOMContentLoaded', function() {
-            feather.replace();
-            
-            // Quiz logic
-            const questions = [
-                {
-                    question: "Why was DataHaven created?",
-                    options: [
-                        "A) Only for NFTs",
-                        "B) To provide decentralized, secure storage and interoperability",
-                        "C) For centralized cloud storage",
-                        "D) Just as a token project"
-                    ],
-                    answer: 1
-                },
-                {
-                    question: "Which problem does DataHaven primarily address?",
-                    options: [
-                        "A) Gaming optimization",
-                        "B) Secure decentralized storage + Ethereum integration",
-                        "C) Video streaming",
-                        "D) IoT device management"
-                    ],
-                    answer: 1
-                },
-                // Add all your questions here following the same format
-                {
-                    question: "DataHaven is primarily built on which blockchain framework?",
-                    options: [
-                        "A) Cosmos SDK",
-                        "B) Substrate",
-                        "C) Solana",
-                        "D) Avalanche"
-                    ],
-                    answer: 1
-                },
-                // Continue with all 50 questions...
-            ];
+        // Initialize Feather Icons
+        feather.replace();
 
-            let currentQuestion = 0;
-            let score = 0;
-            let selectedOption = null;
-            const progressBar = document.querySelector('.progress-bar');
-            const questionText = document.getElementById('question-text');
-            const optionsContainer = document.getElementById('options-container');
-            const submitBtn = document.getElementById('submit-btn');
-            const feedbackModal = document.getElementById('feedback-modal');
-            const feedbackIcon = document.getElementById('feedback-icon');
-            const feedbackTitle = document.getElementById('feedback-title');
-            const feedbackDesc = document.getElementById('feedback-desc');
-            const nextBtn = document.getElementById('next-btn');
-            const levelupModal = document.getElementById('levelup-modal');
-            const continueBtn = document.getElementById('continue-btn');
-            const progressText = document.querySelector('.progress-ring__circle + span');
-            const progressCircle = document.querySelector('.progress-ring__circle');
-            const levelText = document.querySelector('.text-xs');
-            const keys = document.querySelectorAll('[data-feather="key"]');
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+            nav.classList.toggle('flex-col');
+            nav.classList.toggle('absolute');
+            nav.classList.toggle('top-16');
+            nav.classList.toggle('right-4');
+            nav.classList.toggle('bg-white');
+            nav.classList.toggle('p-4');
+            nav.classList.toggle('rounded-lg');
+            nav.classList.toggle('shadow-md');
+        });
 
-            // Load question
-            function loadQuestion(index) {
-                const question = questions[index];
-                questionText.textContent = question.question;
-                optionsContainer.innerHTML = '';
-                
-                question.options.forEach((option, i) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.className = 'option cursor-pointer bg-gray-700 hover:bg-gray-600 rounded-lg p-4 transition-all duration-200 border border-gray-600';
-                    optionElement.dataset.correct = i === question.answer;
-                    optionElement.innerHTML = `
-                        <div class="flex items-start">
-                            <div class="w-5 h-5 rounded-full border border-gray-400 mr-3 flex-shrink-0 mt-1"></div>
-                            <span class="break-words whitespace-normal flex-1">${option}</span>
-                        </div>
-`;
-                    
-                    optionElement.addEventListener('click', function() {
-                        document.querySelectorAll('.option').forEach(opt => {
-                            opt.classList.remove('border-blue-400', 'bg-blue-900', 'bg-opacity-30');
-                            opt.querySelector('div > div').className = 'w-5 h-5 rounded-full border border-gray-400 mr-3 flex-shrink-0';
-                        });
-                        
-                        this.classList.add('border-blue-400', 'bg-blue-900', 'bg-opacity-30');
-                        this.querySelector('div > div').className = 'w-5 h-5 rounded-full border border-blue-400 bg-blue-500 mr-3 flex-shrink-0';
-                        selectedOption = this;
-                    });
-                    
-                    optionsContainer.appendChild(optionElement);
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
                 });
-                
-                // Update progress
-                const progress = ((index) / questions.length) * 100;
-                document.querySelector('.h-full').style.width = `${progress}%`;
-                document.querySelector('.text-sm').textContent = `Question ${index + 1}/${questions.length}`;
-                
-                // Update circular progress
-                const circumference = 2 * Math.PI * 18;
-                const offset = circumference - (progress / 100) * circumference;
-                progressCircle.style.strokeDashoffset = offset;
-                progressText.textContent = `${Math.round(progress)}%`;
-                
-                // Reset submit button
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Submit Answer</span><i data-feather="arrow-right" class="w-4 h-4"></i>';
-                feather.replace();
-            }
-            // Submit answer
-            submitBtn.addEventListener('click', function() {
-                if (!selectedOption || (selectedOption && selectedOption.dataset.answered === 'true')) return;
-this.disabled = true;
-                this.innerHTML = '<span>Checking...</span><i data-feather="loader" class="w-4 h-4 animate-spin"></i>';
-                feather.replace();
-                
-                const isCorrect = selectedOption.dataset.correct === 'true';
-                
-                // Show feedback
-                setTimeout(() => {
-                    feedbackModal.classList.remove('hidden');
-                    
-                    if (isCorrect) {
-                        feedbackIcon.innerHTML = '<i data-feather="check" class="w-10 h-10 text-green-500"></i>';
-                        feedbackTitle.textContent = 'Correct!';
-                        feedbackDesc.textContent = 'Great job! You earned 2 points';
-                        score += 2;
-                    } else {
-                        feedbackIcon.innerHTML = '<i data-feather="x" class="w-10 h-10 text-red-500"></i>';
-                        feedbackTitle.textContent = 'Incorrect!';
-                        feedbackDesc.textContent = 'The correct answer was highlighted';
-                        
-                        // Highlight correct answer
-                        document.querySelectorAll('.option').forEach(opt => {
-                        if (opt.dataset.correct === 'true') {
-                            opt.classList.add('border-green-400', 'bg-green-900', 'bg-opacity-30');
-                        } else {
-                            opt.dataset.answered = 'true';
-                            opt.classList.add('opacity-50', 'cursor-not-allowed');
-                        }
-});
-                    }
-                    
-                    setTimeout(() => {
-                        document.querySelector('#feedback-modal > div').classList.remove('scale-95', 'opacity-0');
-                    }, 50);
-                    
-                    feather.replace();
-                }, 800);
             });
-
-            // Next question
-            nextBtn.addEventListener('click', function() {
-                document.querySelector('#feedback-modal > div').classList.add('scale-95', 'opacity-0');
-                
-                setTimeout(() => {
-                    feedbackModal.classList.add('hidden');
-                    
-                    // Check if level up
-                    if ((currentQuestion + 1) % 10 === 0) {
-                        const level = Math.floor((currentQuestion + 1) / 10);
-                        levelText.textContent = `Level ${level}`;
-                        
-                        // Unlock key
-                        if (level <= 5) {
-                            keys[level - 1].classList.remove('text-gray-400');
-                            keys[level - 1].classList.add('text-yellow-400');
-                        }
-                        
-                        // Show level up modal
-                        setTimeout(() => {
-                            levelupModal.classList.remove('hidden');
-                            setTimeout(() => {
-                                document.querySelector('#levelup-modal > div').classList.remove('scale-95', 'opacity-0');
-                            }, 50);
-                        }, 300);
-                    } else {
-                        currentQuestion++;
-                        if (currentQuestion < questions.length) {
-                            loadQuestion(currentQuestion);
-                            selectedOption = null;
-                            // Reset all options
-                            document.querySelectorAll('.option').forEach(opt => {
-                                opt.dataset.answered = 'false';
-                                opt.classList.remove('opacity-50', 'cursor-not-allowed');
-                            });
-} else {
-                            // Quiz completed
-                            alert('Quiz completed! Your score: ' + score);
-                        }
-                    }
-                }, 300);
-            });
-
-            // Continue after level up
-            continueBtn.addEventListener('click', function() {
-                document.querySelector('#levelup-modal > div').classList.add('scale-95', 'opacity-0');
-                
-                setTimeout(() => {
-                    levelupModal.classList.add('hidden');
-                    currentQuestion++;
-                    if (currentQuestion < questions.length) {
-                        loadQuestion(currentQuestion);
-                        selectedOption = null;
-                    } else {
-                        // Quiz completed
-                        alert('Quiz completed! Your score: ' + score);
-                    }
-                }, 300);
-            });
-
-            // Initialize first question
-            loadQuestion(0);
         });
     </script>
 </body>
