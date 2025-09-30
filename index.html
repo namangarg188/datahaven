@@ -1,312 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuizHaven Royale</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <style>
-        .option:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DataHaven Quiz</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center space-x-1">
-                    <i data-feather="award" class="text-purple-600"></i>
-                    <span class="text-xl font-bold text-purple-800">QuizHaven</span>
-                    <span class="text-xs bg-yellow-400 px-2 py-1 rounded-full ml-2">Royale 🏆</span>
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="px-3 py-2 text-purple-800 font-medium hover:text-purple-600" id="quizBtn">Quiz</a>
-                    <a href="#" class="px-3 py-2 text-purple-800 font-medium hover:text-purple-600" id="leaderboardBtn">Leaderboard</a>
-                    <a href="#" class="px-3 py-2 text-purple-800 font-medium hover:text-purple-600" id="addQuestionBtn">Add Question</a>
-                    <a href="#" class="px-3 py-2 text-purple-800 font-medium hover:text-purple-600" id="adminBtn">Admin</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container mx-auto px-4 py-12" id="mainContent">
-        <!-- Quiz Section -->
-        <div id="quizSection" class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-8">
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-purple-800 mb-2">DataHaven Knowledge Challenge</h1>
-                <p class="text-gray-600">Test your knowledge and compete for weekly crypto rewards!</p>
-                <div class="mt-4 flex justify-center items-center">
-                    <div class="bg-yellow-100 px-4 py-2 rounded-full flex items-center">
-                        <i data-feather="alert-triangle" class="text-yellow-600 mr-2"></i>
-                        <span class="text-yellow-800 font-medium">Top scorer gets 5 keys weekly!</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-500">Question 1/20</span>
-                    <span class="text-sm font-medium text-purple-600">Score: 0</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-purple-600 h-2 rounded-full" style="width: 5%"></div>
-                </div>
-            </div>
-
-            <div class="quiz-card bg-white border border-gray-200 rounded-xl p-6 shadow-sm mb-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Why was DataHaven created?</h2>
-                <div class="space-y-3">
-                    <div class="option bg-gray-50 p-4 rounded-lg cursor-pointer hover:bg-purple-50 transition duration-200 border border-gray-200">
-                        A) Only for NFTs
-                    </div>
-                    <div class="option bg-gray-50 p-4 rounded-lg cursor-pointer hover:bg-purple-50 transition duration-200 border border-gray-200 border-purple-300">
-                        B) To provide decentralized, secure storage and interoperability
-                    </div>
-                    <div class="option bg-gray-50 p-4 rounded-lg cursor-pointer hover:bg-purple-50 transition duration-200 border border-gray-200">
-                        C) For centralized cloud storage
-                    </div>
-                    <div class="option bg-gray-50 p-4 rounded-lg cursor-pointer hover:bg-purple-50 transition duration-200 border border-gray-200">
-                        D) Just as a token project
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-between">
-                <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition duration-200">
-                    <i data-feather="chevron-left" class="inline mr-1"></i> Previous
-                </button>
-                <button class="px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition duration-200 pulse-animation">
-                    Next <i data-feather="chevron-right" class="inline ml-1"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Leaderboard Section (Hidden by default) -->
-        <div id="leaderboardSection" class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-8 hidden">
-            <h1 class="text-3xl font-bold text-purple-800 mb-6 text-center">Weekly Leaderboard</h1>
-            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-                <div class="flex items-center">
-                    <i data-feather="award" class="text-yellow-500 mr-2"></i>
-                    <p class="text-yellow-800 font-medium">This week's top scorer will receive 5 crypto keys!</p>
-                </div>
-            </div>
-            
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rank</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Questions</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Discord</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <tr class="bg-purple-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-purple-800 flex items-center">
-                                <i data-feather="crown" class="text-yellow-500 mr-2"></i> 1
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">CryptoKing42</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">95%</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">19/20</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">CryptoKing42#1234</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">BlockchainQueen</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">90%</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">18/20</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">BQueen#5678</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">DeFiExplorer</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">85%</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">17/20</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">DeFiExp#9012</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Add Question Section (Hidden by default) -->
-        <div id="addQuestionSection" class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-8 hidden">
-            <h1 class="text-3xl font-bold text-purple-800 mb-6 text-center">Add Your Question</h1>
-            <p class="text-center text-gray-600 mb-8">Contribute to our quiz database and help build the community!</p>
-            
-            <form class="space-y-4">
-                <div>
-                    <label for="question" class="block text-sm font-medium text-gray-700 mb-1">Your Question*</label>
-                    <textarea id="question" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter your question here..."></textarea>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="optionA" class="block text-sm font-medium text-gray-700 mb-1">Option A*</label>
-                        <input type="text" id="optionA" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Option A">
-                    </div>
-                    <div>
-                        <label for="optionB" class="block text-sm font-medium text-gray-700 mb-1">Option B*</label>
-                        <input type="text" id="optionB" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Option B">
-                    </div>
-                    <div>
-                        <label for="optionC" class="block text-sm font-medium text-gray-700 mb-1">Option C*</label>
-                        <input type="text" id="optionC" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Option C">
-                    </div>
-                    <div>
-                        <label for="optionD" class="block text-sm font-medium text-gray-700 mb-1">Option D*</label>
-                        <input type="text" id="optionD" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Option D">
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="correctAnswer" class="block text-sm font-medium text-gray-700 mb-1">Correct Answer*</label>
-                    <select id="correctAnswer" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                        <option value="">Select correct option</option>
-                        <option value="A">Option A</option>
-                        <option value="B">Option B</option>
-                        <option value="C">Option C</option>
-                        <option value="D">Option D</option>
-                    </select>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="discord" class="block text-sm font-medium text-gray-700 mb-1">Your Discord Username*</label>
-                        <input type="text" id="discord" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="username#1234">
-                    </div>
-                    <div>
-                        <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Question Category*</label>
-                        <select id="category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                            <option value="">Select category</option>
-                            <option value="technology">Technology</option>
-                            <option value="blockchain">Blockchain</option>
-                            <option value="storage">Storage</option>
-                            <option value="economics">Economics</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="pt-4">
-                    <button type="submit" class="w-full bg-purple-600 text-white py-3 px-4 rounded-md font-medium hover:bg-purple-700 transition duration-200 flex items-center justify-center">
-                        <i data-feather="plus" class="mr-2"></i> Submit Question
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Admin Section (Hidden by default) -->
-        <div id="adminSection" class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-8 hidden">
-            <h1 class="text-3xl font-bold text-purple-800 mb-6 text-center">Admin Dashboard</h1>
-            <p class="text-center text-gray-600 mb-8">Manage questions and view submissions</p>
-            
-            <div class="mb-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Pending Questions</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted By</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">What is DataHaven's core technology?</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">CryptoFan#7890</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <button class="text-green-600 hover:text-green-800 mr-3">Approve</button>
-                                    <button class="text-red-600 hover:text-red-800">Reject</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <div>
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Manage Rewards</h2>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Weekly Reward Amount (keys)</label>
-                        <input type="number" value="5" class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                    </div>
-                    <button class="bg-purple-600 text-white py-2 px-4 rounded-md font-medium hover:bg-purple-700 transition duration-200">
-                        Update Reward
-                    </button>
-                </div>
-            </div>
-        </div>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo" aria-label="DataHaven logo"></div>
+      <div class="titles">
+        <h1>DataHaven</h1>
+        <p class="subtitle">Decentralized Storage Quiz</p>
+      </div>
     </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="quiz" role="tab" aria-selected="true">Quiz</button>
+      <button class="tab" data-tab="add" role="tab">Add Question</button>
+      <button class="tab" data-tab="leaderboard" role="tab">Leaderboard</button>
+      <button class="tab" data-tab="admin" role="tab">Admin</button>
+    </nav>
+  </header>
 
-    <script>
-        // Navigation between sections
-        document.getElementById('quizBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('leaderboardSection').classList.add('hidden');
-            document.getElementById('addQuestionSection').classList.add('hidden');
-            document.getElementById('adminSection').classList.add('hidden');
-        });
-        
-        document.getElementById('leaderboardBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('quizSection').classList.add('hidden');
-            document.getElementById('leaderboardSection').classList.remove('hidden');
-            document.getElementById('addQuestionSection').classList.add('hidden');
-            document.getElementById('adminSection').classList.add('hidden');
-        });
-        
-        document.getElementById('addQuestionBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('quizSection').classList.add('hidden');
-            document.getElementById('leaderboardSection').classList.add('hidden');
-            document.getElementById('addQuestionSection').classList.remove('hidden');
-            document.getElementById('adminSection').classList.add('hidden');
-        });
-        
-        document.getElementById('adminBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('quizSection').classList.add('hidden');
-            document.getElementById('leaderboardSection').classList.add('hidden');
-            document.getElementById('addQuestionSection').classList.add('hidden');
-            document.getElementById('adminSection').classList.remove('hidden');
-        });
+  <main>
+    <!-- QUIZ TAB -->
+    <section id="tab-quiz" class="tab-panel active" role="tabpanel">
+      <form id="start-form" class="card">
+        <h2>Start Quiz</h2>
+        <label class="field">
+          <span>Discord Name</span>
+          <input id="playerName" type="text" placeholder="e.g. user#1234" required />
+        </label>
+        <button type="submit" class="btn primary">Start</button>
+      </form>
 
-        // Quiz functionality
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                document.querySelectorAll('.option').forEach(opt => {
-                    opt.classList.remove('border-purple-300', 'bg-purple-100');
-                });
-                
-                // Add selected class to clicked option
-                this.classList.add('border-purple-300', 'bg-purple-100');
-            });
-        });
+      <div id="quiz-area" class="card hidden">
+        <div class="quiz-meta">
+          <div id="question-counter">Question 1 / 20</div>
+          <div id="score-counter">Score: 0</div>
+        </div>
+        <h2 id="question-text"></h2>
+        <div id="options" class="options"></div>
+        <div class="quiz-actions">
+          <button id="nextBtn" class="btn" disabled>Next</button>
+          <button id="submitBtn" class="btn primary hidden">Submit</button>
+        </div>
+      </div>
 
-        // Initialize feather icons
-        feather.replace();
-    </script>
+      <div id="result-area" class="card hidden"></div>
+    </section>
+
+    <!-- ADD TAB -->
+    <section id="tab-add" class="tab-panel" role="tabpanel">
+      <form id="add-form" class="card">
+        <h2>Add Your Question</h2>
+        <p class="muted">Only Add allowed. Removal is Admin-only.</p>
+        <label class="field">
+          <span>Discord Name (who is adding?)</span>
+          <input id="addDiscord" type="text" placeholder="e.g. user#1234" required />
+        </label>
+        <label class="field">
+          <span>Question</span>
+          <textarea id="addQuestion" rows="3" placeholder="Type your question" required></textarea>
+        </label>
+        <div class="grid-2">
+          <label class="field"><span>Option A</span><input id="addA" required /></label>
+          <label class="field"><span>Option B</span><input id="addB" required /></label>
+          <label class="field"><span>Option C</span><input id="addC" required /></label>
+          <label class="field"><span>Option D</span><input id="addD" required /></label>
+        </div>
+        <label class="field">
+          <span>Correct Answer</span>
+          <select id="addCorrect" required>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+          </select>
+        </label>
+        <button type="submit" class="btn primary">Add</button>
+        <div id="add-status" class="status"></div>
+      </form>
+
+      <div class="card">
+        <h3>Your Contributions</h3>
+        <p class="muted">List of questions you added (by the Discord name you entered).</p>
+        <div id="yourAddedCount" class="pill">0 added</div>
+        <ul id="yourAddedList" class="list"></ul>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD TAB -->
+    <section id="tab-leaderboard" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <h2>Weekly Leaderboard</h2>
+        <p class="muted">Top scorer each week earns <strong>5 Keys</strong>. Resets every Monday 00:00.</p>
+        <ol id="leaderboard" class="leaderboard"></ol>
+      </div>
+      <div class="card">
+        <h3>Contribution Count</h3>
+        <p class="muted">Total questions added by each Discord name.</p>
+        <ol id="contributors" class="leaderboard"></ol>
+      </div>
+    </section>
+
+    <!-- ADMIN TAB -->
+    <section id="tab-admin" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <h2>Admin Panel</h2>
+        <p class="muted">Removal is admin-only. Enter admin code to unlock delete.</p>
+        <label class="field inline">
+          <input id="adminCode" type="password" placeholder="Enter admin code" />
+          <button id="adminUnlock" class="btn">Unlock</button>
+        </label>
+        <div id="adminStatus" class="status"></div>
+      </div>
+
+      <div class="card">
+        <h3>User-Added Questions</h3>
+        <p class="muted">Seed questions are protected and not listed here.</p>
+        <ul id="adminQuestionList" class="list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>DataHaven © 2025</span>
+    <span class="dot">•</span>
+    <a href="#" id="exportBtn">Export Data</a>
+    <span class="dot">•</span>
+    <a href="#" id="importBtn">Import Data</a>
+    <input id="importFile" type="file" accept="application/json" class="hidden" />
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
